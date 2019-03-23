@@ -22,7 +22,7 @@ func NewReaderFile(filename, path string, reader io.ReadCloser, stat os.FileInfo
 }
 
 func NewReaderPathFile(filename, path string, reader io.ReadCloser, stat os.FileInfo) (*ReaderFile, error) {
-	abspath, err := filepath.Abs(path)
+	abspath, err := filepath.EvalSymlinks(path)
 	if err != nil {
 		return nil, err
 	}

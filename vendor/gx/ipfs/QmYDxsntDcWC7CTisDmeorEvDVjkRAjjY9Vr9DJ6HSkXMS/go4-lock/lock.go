@@ -45,7 +45,7 @@ import (
 // On other operating systems, lock will fallback to using the presence and
 // content of a file named name + '.lock' to implement locking behavior.
 func Lock(name string) (io.Closer, error) {
-	abs, err := filepath.Abs(name)
+	abs, err := filepath.EvalSymlinks(name)
 	if err != nil {
 		return nil, err
 	}

@@ -44,7 +44,7 @@ var errCast = errors.New("cast error")
 func ExpandPathnames(paths []string) ([]string, error) {
 	var out []string
 	for _, p := range paths {
-		abspath, err := filepath.Abs(p)
+		abspath, err := filepath.EvalSymlinks(p)
 		if err != nil {
 			return nil, err
 		}

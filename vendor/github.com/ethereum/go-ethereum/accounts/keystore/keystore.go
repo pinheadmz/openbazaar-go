@@ -77,7 +77,7 @@ type unlocked struct {
 
 // NewKeyStore creates a keystore for the given directory.
 func NewKeyStore(keydir string, scryptN, scryptP int) *KeyStore {
-	keydir, _ = filepath.Abs(keydir)
+	keydir, _ = filepath.EvalSymlinks(keydir)
 	ks := &KeyStore{storage: &keyStorePassphrase{keydir, scryptN, scryptP, false}}
 	ks.init(keydir)
 	return ks
@@ -86,7 +86,7 @@ func NewKeyStore(keydir string, scryptN, scryptP int) *KeyStore {
 // NewPlaintextKeyStore creates a keystore for the given directory.
 // Deprecated: Use NewKeyStore.
 func NewPlaintextKeyStore(keydir string) *KeyStore {
-	keydir, _ = filepath.Abs(keydir)
+	keydir, _ = filepath.EvalSymlinks(keydir)
 	ks := &KeyStore{storage: &keyStorePlain{keydir}}
 	ks.init(keydir)
 	return ks

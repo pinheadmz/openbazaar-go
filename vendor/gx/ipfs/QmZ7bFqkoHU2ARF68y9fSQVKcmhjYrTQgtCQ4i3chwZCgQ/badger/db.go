@@ -196,11 +196,11 @@ func Open(opt Options) (db *DB, err error) {
 			}
 		}
 	}
-	absDir, err := filepath.Abs(opt.Dir)
+	absDir, err := filepath.EvalSymlinks(opt.Dir)
 	if err != nil {
 		return nil, err
 	}
-	absValueDir, err := filepath.Abs(opt.ValueDir)
+	absValueDir, err := filepath.EvalSymlinks(opt.ValueDir)
 	if err != nil {
 		return nil, err
 	}

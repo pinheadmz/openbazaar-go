@@ -52,7 +52,7 @@ func cleanpath(path string) (realpath string, isrec bool, err error) {
 		isrec = true
 		path = path[:len(path)-3]
 	}
-	if path, err = filepath.Abs(path); err != nil {
+	if path, err = filepath.EvalSymlinks(path); err != nil {
 		return "", false, err
 	}
 	if path, err = canonical(path); err != nil {
@@ -65,7 +65,7 @@ func cleanpath(path string) (realpath string, isrec bool, err error) {
 // It expects the path to be absolute. It fails to resolve circular symlinks by
 // maintaining a simple iteration limit.
 func canonical(p string) (string, error) {
-	p, err := filepath.Abs(p)
+	p, err := filepath.EvalSymlinks(p)
 	if err != nil {
 		return "", err
 	}

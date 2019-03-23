@@ -45,7 +45,7 @@ type directoryLockGuard struct {
 func acquireDirectoryLock(dirPath string, pidFileName string, readOnly bool) (*directoryLockGuard, error) {
 	// Convert to absolute path so that Release still works even if we do an unbalanced
 	// chdir in the meantime.
-	absPidFilePath, err := filepath.Abs(filepath.Join(dirPath, pidFileName))
+	absPidFilePath, err := filepath.EvalSymlinks(filepath.Join(dirPath, pidFileName))
 	if err != nil {
 		return nil, errors.Wrap(err, "cannot get absolute path for pid lock file")
 	}

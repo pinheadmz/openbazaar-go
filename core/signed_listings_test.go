@@ -11,7 +11,7 @@ import (
 
 func TestOpenBazaarSignedListings_GetSignedListingFromPath(t *testing.T) {
 
-	absPathInvalid, _ := filepath.Abs("../test/contracts/signed_listings_1_invalid.json")
+	absPathInvalid, _ := filepath.EvalSymlinks("../test/contracts/signed_listings_1_invalid.json")
 
 	// Check for non-existent file
 	_, err := core.GetSignedListingFromPath("nonsense.file")
@@ -27,7 +27,7 @@ func TestOpenBazaarSignedListings_GetSignedListingFromPath(t *testing.T) {
 }
 
 func TestOpenBazaarSignedListings_SetAcceptedCurrencies(t *testing.T) {
-	absPath, _ := filepath.Abs("../test/contracts/signed_listings_1.json")
+	absPath, _ := filepath.EvalSymlinks("../test/contracts/signed_listings_1.json")
 	currencies := []string{"TEST"}
 
 	listing, err := core.GetSignedListingFromPath(absPath)
@@ -48,7 +48,7 @@ func TestOpenBazaarSignedListings_SetAcceptedCurrencies(t *testing.T) {
 }
 
 func TestOpenBazaarSignedListings_AssignMatchingCoupons(t *testing.T) {
-	absPath, _ := filepath.Abs("../test/contracts/signed_listings_1.json")
+	absPath, _ := filepath.EvalSymlinks("../test/contracts/signed_listings_1.json")
 	coupons := []repo.Coupon{
 		{"signed_listings_1", "test", "QmQ5vueeX64fsSo6fU9Z1dDFMR9rky5FjowEr7m7cSiGd8"},
 		{"signed_listings_1", "bad", "BADHASH"},
@@ -72,7 +72,7 @@ func TestOpenBazaarSignedListings_AssignMatchingCoupons(t *testing.T) {
 }
 
 func TestOpenBazaarSignedListings_AssignMatchingQuantities(t *testing.T) {
-	absPath, _ := filepath.Abs("../test/contracts/signed_listings_1.json")
+	absPath, _ := filepath.EvalSymlinks("../test/contracts/signed_listings_1.json")
 
 	inventory := map[int]int64{
 		0: 1000,
@@ -94,7 +94,7 @@ func TestOpenBazaarSignedListings_AssignMatchingQuantities(t *testing.T) {
 }
 
 func TestOpenBazaarSignedListings_ApplyShippingOptions(t *testing.T) {
-	absPath, _ := filepath.Abs("../test/contracts/signed_listings_1.json")
+	absPath, _ := filepath.EvalSymlinks("../test/contracts/signed_listings_1.json")
 
 	listing, err := core.GetSignedListingFromPath(absPath)
 	if err != nil {

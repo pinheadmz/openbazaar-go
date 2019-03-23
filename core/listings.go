@@ -1396,7 +1396,7 @@ func verifySignaturesOnListing(sl *pb.SignedListing) error {
 
 // SetCurrencyOnListings - set currencies accepted for a listing
 func (n *OpenBazaarNode) SetCurrencyOnListings(currencies []string) error {
-	absPath, err := filepath.Abs(path.Join(n.RepoPath, "root", "listings"))
+	absPath, err := filepath.EvalSymlinks(path.Join(n.RepoPath, "root", "listings"))
 	if err != nil {
 		return err
 	}

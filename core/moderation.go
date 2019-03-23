@@ -181,7 +181,7 @@ func (n *OpenBazaarNode) GetModeratorFee(transactionTotal uint64, paymentCoin, c
 
 // SetModeratorsOnListings - set moderators for a listing
 func (n *OpenBazaarNode) SetModeratorsOnListings(moderators []string) error {
-	absPath, err := filepath.Abs(path.Join(n.RepoPath, "root", "listings"))
+	absPath, err := filepath.EvalSymlinks(path.Join(n.RepoPath, "root", "listings"))
 	if err != nil {
 		return err
 	}

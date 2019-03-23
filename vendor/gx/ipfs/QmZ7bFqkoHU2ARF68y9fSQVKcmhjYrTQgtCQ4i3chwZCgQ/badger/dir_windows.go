@@ -74,7 +74,7 @@ func acquireDirectoryLock(dirPath string, pidFileName string, readOnly bool) (*d
 
 	// Convert to absolute path so that Release still works even if we do an unbalanced
 	// chdir in the meantime.
-	absLockFilePath, err := filepath.Abs(filepath.Join(dirPath, pidFileName))
+	absLockFilePath, err := filepath.EvalSymlinks(filepath.Join(dirPath, pidFileName))
 	if err != nil {
 		return nil, errors.Wrap(err, "Cannot get absolute path for pid lock file")
 	}
